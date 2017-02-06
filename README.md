@@ -1,4 +1,7 @@
-React Boilerplate w/Karma for Testing and Foundation Components
+A D3 based React component for displaying a somewhat interactive
+network graph.
+
+## Notes
 
 Create a new Heroku Application:
 >  heroku login 
