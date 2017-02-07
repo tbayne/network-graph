@@ -18,19 +18,22 @@ module.exports = {
     resolve: {
 
         root: __dirname,
+        modulesDirectories: [
+            'node_modules', './app/components', './app/api'
+        ],
         alias: {
             applicationStyles: "app/styles/app.scss",
-            jQuery: 'jquery',
-            Main: "app/components/Main.jsx"
+            jQuery: 'jquery'
         },
         extensions: ['', '.js', '.jsx']
     },
+
     module: {
         loaders: [
             {
                 loader: 'babel-loader',
                 query: {
-                    presets: ['react', 'es2017', 'stage-2']
+                    presets: ['react', 'es2015', 'stage-0']
                 },
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/
