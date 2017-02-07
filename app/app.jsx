@@ -1,17 +1,13 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
-import NetworkGraph from 'NetworkGraph';
+import NetworkGraphContainer from 'NetworkGraphContainer';
 
 // Load foundation
 require('style!css!foundation-sites/dist/css/foundation.min.css')
 $(document).foundation();
 
-function addLink(Source, Target) {
-    console.log("addLink", Source, Target)
-}
-
-const nodes = [
+var nodes = [
     {
         id: "A"
     }, {
@@ -28,7 +24,7 @@ const nodes = [
         id: "G"
     }
 ]
-const links = [
+var links = [
     {
         source: "B",
         target: "A",
@@ -52,9 +48,10 @@ const links = [
 require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
-    <NetworkGraph
-    addLink={addLink}
+    <NetworkGraphContainer
     width={800}
     height={600}
-    links={links}
-    nodes={nodes}/>, document.getElementById('app'));
+    nLinks={links}
+    nodes={nodes}
+    distance={250}
+    nodeSize={30}/>, document.getElementById('app'));

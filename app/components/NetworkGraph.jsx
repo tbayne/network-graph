@@ -52,10 +52,10 @@ class NetworkGraph extends Component {
     componentWillUnmount() {}
 
     createForceLayout() {
-
+        var _that = this; // access to parent "this" object from sub-functions
         var drawingLinks = false;
         var controlKeyDown = false;
-        // var edges = this.props.links;
+        var edges = this.props.nLinks;
         var nodes = this.props.nodes;
         var g = d3
             .select("svg")
@@ -78,17 +78,14 @@ class NetworkGraph extends Component {
                 nodeHash[node.id] = node;
             })
 
-            this
-                .edges
-                .forEach(edge => {
-                    this.edge.weight = parseInt(this.edge.weight);
-                    this.edge.source = nodeHash[this.edge.source];
-                    this.edge.target = nodeHash[this.edge.target];
-                })
+            edges.forEach(edge => {
+                edge.weight = parseInt(edge.weight);
+                edge.source = nodeHash[edge.source];
+                edge.target = nodeHash[edge.target];
+            })
 
             nodes.forEach(d => {
-                d.degreeCentrality = this
-                    .edges
+                d.degreeCentrality = edges
                     .filter(p => p.source === d || p.target === d)
                     .length
             })
@@ -99,7 +96,7 @@ class NetworkGraph extends Component {
             //d3.select("svg").select("g.g_links").selectAll("line.link")
             g_links
                 .selectAll("line.link")
-                .data(this.edges, d => d.source.id + "-" + d.target.id)
+                .data(edges, d => d.source.id + "-" + d.target.id)
                 .enter()
                 .append("line")
                 .attr("class", "link")
@@ -123,7 +120,7 @@ class NetworkGraph extends Component {
 
         simulation
             .force("link")
-            .links(this.edges)
+            .links(edges)
 
         refreshLinks();
 
@@ -347,9 +344,11 @@ class NetworkGraph extends Component {
 NetworkGraph.propTypes = {
     addLink: PropTypes.func.isRequired, // Callback for adding a link between two nodes
     nodes: PropTypes.array.isRequired, // Array of nodes
-    links: PropTypes.array.isRequired, // Array of links
+    nLinks: PropTypes.array.isRequired, // Array of links
     width: PropTypes.number.isRequired, // Width of returned SVG element
-    height: PropTypes.number.isRequired // Height of returned SVG element
+    height: PropTypes.number.isRequired, // Height of returned SVG element
+    distance: PropTypes.number.isRequired, // Link Distance
+    nodeSize: PropTypes.number.isRequired // Node circle size
 };
 
 export default NetworkGraph;
