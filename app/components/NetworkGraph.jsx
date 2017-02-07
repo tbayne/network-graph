@@ -101,7 +101,8 @@ class NetworkGraph extends Component {
                 .append("line")
                 .attr("class", "link")
                 .style("opacity", .5)
-                .style("stroke-width", d => d.weight);
+                .style("stroke-width", d => d.weight)
+                .style("stroke", "black");
 
         }
 
