@@ -110,6 +110,7 @@ class NetworkGraph extends Component {
         var linkForce = d3
             .forceLink()
             .strength(d => d.weight * .1)
+            .distance(this.props.distance)
 
         var simulation = d3
             .forceSimulation()
@@ -316,7 +317,7 @@ class NetworkGraph extends Component {
 
         nodeEnter
             .append("circle")
-            .attr("r", 20)
+            .attr("r", this.props.nodeSize)
             .style("fill", d => "#41A368")
             .on("click", onNodeClick)
             .attr("id", d => d.id)
