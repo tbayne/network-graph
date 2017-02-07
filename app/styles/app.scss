@@ -12,15 +12,9 @@
     align-items: center;
     padding: 1rem;
     transition: background .3s ease;
+}
+.page-title{
+    margin: 2rem 0;
+    text-align: center;
 
-    p, input {
-        margin: 0;
-    }
-
-    > :first-child {
-        margin-right: 1rem;   
-    }
-    &:hover {
-        background: #f0f0f0;
-    }
 }

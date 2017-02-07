@@ -7,15 +7,32 @@ class NetworkGraphContainer extends Component {
         this.addNewLink = this
             .addNewLink
             .bind(this);
+        this.sourceNodeSelected = this
+            .sourceNodeSelected
+            .bind(this);
+        this.targetNodeSelected = this
+            .targetNodeSelected
+            .bind(this);
+
         this.state = {
             nodes: props.nodes,
             nLinks: props.nLinks,
             nodeSize: props.nodeSize,
-            distance: props.distance
+            distance: props.distance,
+            helpText: "Control + Click to Select a Node (keep the Control Key Depressed)",
+            secondaryHelpText: ""
         }
+    }
+    sourceNodeSelected() {
+        this.setState({helpText: "Source node selected, Control + Click a second node to establish a link", secondaryHelpText: "(Control click the node again to unselect it)"})
+    }
+    targetNodeSelected() {
+        this.setState({helpText: "Target node selected, release the Control key to complete the link", secondaryHelpText: "(Control click the node again to unselect it)"})
     }
     addNewLink(Source, Target) {
         console.log("addNewLink", Source, Target)
+        this.setState({helpText: "Control + Click to Select a Node (keep the Control Key Depressed)", secondaryHelpText: ""})
+        /*
         let linksCopy = this.state.links;
         let newLink = {
             source: Source.id,
@@ -24,6 +41,7 @@ class NetworkGraphContainer extends Component {
         };
         linksCopy.push(newLink);
         this.setState({links: linksCopy});
+        */
     }
 
     render() {
@@ -32,15 +50,19 @@ class NetworkGraphContainer extends Component {
 
                 <h3 className="page-title">Network Graph</h3>
                 <div className="row">
-                    <div className="column small-centered small-11 medium-6 large-5">
+                    <div className="column medium-centered small-11 medium-8 large-6">
                         <NetworkGraph
-                            addLink={this.addNewLink}
+                            addNewLink={this.addNewLink}
+                            sourceNodeSelected={this.sourceNodeSelected}
+                            targetNodeSelected={this.targetNodeSelected}
                             width={800}
                             height={600}
                             nLinks={this.state.nLinks}
                             nodes={this.state.nodes}
                             distance={250}
                             nodeSize={30}/>
+                        <p>{this.state.helpText}</p>
+                        <p>{this.state.secondaryHelpText}</p>
                     </div>
                 </div>
             </div>

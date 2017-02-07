@@ -42,7 +42,9 @@ class NetworkGraph extends Component {
 
     componentWillReceiveProps(nextProps) {}
 
-    shouldComponentUpdate(nextProps, nextState) {}
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
 
     componentWillUpdate(nextProps, nextState) {}
 
@@ -213,6 +215,9 @@ class NetworkGraph extends Component {
                     d3
                         .select(d3ev.target)
                         .style("fill", "red");
+                    this
+                        .props
+                        .sourceNodeSelected();
                     return;
                 } else if (this.linkTarget === undefined) {
                     this.linkTarget = data;
@@ -222,6 +227,9 @@ class NetworkGraph extends Component {
                     d3
                         .select(d3ev.target)
                         .style("fill", "orange");
+                    this
+                        .props
+                        .targetNodeSelected();
                     return;
                 }
 
@@ -279,10 +287,14 @@ class NetworkGraph extends Component {
                         .select(selectString)
                         .style("fill", _that.SourceNodeColor);
                 }
+                _that
+                    .props
+                    .addNewLink(_that.linkSource, _that.linkTarget);
                 _that.linkSource = undefined;
                 _that.linkTarget = undefined;
 
                 simulation.restart();
+
             }
         }
 
@@ -345,13 +357,15 @@ class NetworkGraph extends Component {
 }
 
 NetworkGraph.propTypes = {
-    addLink: PropTypes.func.isRequired, // Callback for adding a link between two nodes
+    addNewLink: PropTypes.func.isRequired, // Callback for adding a link between two nodes
     nodes: PropTypes.array.isRequired, // Array of nodes
     nLinks: PropTypes.array.isRequired, // Array of links
     width: PropTypes.number.isRequired, // Width of returned SVG element
     height: PropTypes.number.isRequired, // Height of returned SVG element
     distance: PropTypes.number.isRequired, // Link Distance
-    nodeSize: PropTypes.number.isRequired // Node circle size
+    nodeSize: PropTypes.number.isRequired, // Node circle size
+    sourceNodeSelected: PropTypes.func, // Notify parent that a source node has been selected
+    targetNodeSelected: PropTypes.func // Notify parent that a target node has been selected
 };
 
 export default NetworkGraph;
