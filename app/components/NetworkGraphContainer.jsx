@@ -29,15 +29,22 @@ class NetworkGraphContainer extends Component {
     render() {
         return (
             <div>
-                <NetworkGraph
-                    addLink={this.addNewLink}
-                    width={800}
-                    height={600}
-                    nLinks={this.state.nLinks}
-                    nodes={this.state.nodes}
-                    distance={250}
-                    nodeSize={30}/>
+
+                <h3 className="page-title">Network Graph</h3>
+                <div className="row">
+                    <div className="column small-centered small-11 medium-6 large-5">
+                        <NetworkGraph
+                            addLink={this.addNewLink}
+                            width={800}
+                            height={600}
+                            nLinks={this.state.nLinks}
+                            nodes={this.state.nodes}
+                            distance={250}
+                            nodeSize={30}/>
+                    </div>
+                </div>
             </div>
+
         );
     }
 

@@ -22,16 +22,15 @@ class NetworkGraph extends Component {
     render() {
 
         return (
+
             <div>
-                <h3 className="text-center page-title">Network Graph</h3>
-                <div>
-                    <svg
-                        style={{
-                        width: this.props.width + 'px',
-                        height: this.props.height + 'px'
-                    }}/>
-                </div>
+                <svg
+                    style={{
+                    width: this.props.width + 'px',
+                    height: this.props.height + 'px'
+                }}/>
             </div>
+
         );
     }
     // Lifecycle methods
