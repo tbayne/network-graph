@@ -32,16 +32,25 @@ class NetworkGraphContainer extends Component {
     addNewLink(Source, Target) {
         console.log("addNewLink", Source, Target)
         this.setState({helpText: "Control + Click to Select a Node (keep the Control Key Depressed)", secondaryHelpText: ""})
-        /*
-        let linksCopy = this.state.links;
+
+        let linksCopy = this.state.nLinks;
+        let newSource = {
+            id: Source.id
+        };
+        let newTarget = {
+            id: Target.id
+        };
+
         let newLink = {
-            source: Source.id,
-            target: Target.id,
+            source: newSource,
+            target: newTarget,
             weight: 5
         };
+
         linksCopy.push(newLink);
         this.setState({links: linksCopy});
-        */
+        console.log("addNewLink", this.state.nLinks);
+
     }
 
     render() {
@@ -50,7 +59,7 @@ class NetworkGraphContainer extends Component {
 
                 <h3 className="page-title">Network Graph</h3>
                 <div className="row">
-                    <div className="column medium-centered small-11 medium-8 large-6">
+                    <div className="column medium-centered small-12 medium-10 large-8">
                         <NetworkGraph
                             addNewLink={this.addNewLink}
                             sourceNodeSelected={this.sourceNodeSelected}

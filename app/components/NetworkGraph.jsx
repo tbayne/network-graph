@@ -50,7 +50,11 @@ class NetworkGraph extends Component {
 
     componentDidUpdate(prevProps, prevState) {}
 
-    componentWillUnmount() {}
+    componentWillUnmount() {
+        d3
+            .simulation
+            .stop();
+    }
 
     createForceLayout() {
 
@@ -67,12 +71,12 @@ class NetworkGraph extends Component {
             .select("svg")
             .select("g.viewport")
             .append("g")
-            .attr("class", "g_links"); // Link layer, should be appended first
+            .attr("class", "g_links"); // Link layer, should be appended first, order matters
         var g_nodes = d3
             .select("svg")
             .select("g.viewport")
             .append("g")
-            .attr("class", "g_nodes"); // Node layer, should be appended second
+            .attr("class", "g_nodes"); // Node layer, should be appended second, order matters
         var nodeHash = {};
 
         function refresh() {
@@ -104,7 +108,7 @@ class NetworkGraph extends Component {
                 .attr("class", "link")
                 .style("opacity", .5)
                 .style("stroke-width", d => d.weight)
-                .style("stroke", "black");
+                .style("stroke", "black"); // Todo: Make this a property
 
         }
 
