@@ -52,9 +52,10 @@ class NetworkGraph extends Component {
     componentWillUnmount() {}
 
     createForceLayout() {
-        var _that = this; // access to parent "this" object from sub-functions
+
         var drawingLinks = false;
         var controlKeyDown = false;
+        const _that = this; // Used by some of the subfunctions so they have the right context
         var edges = this.props.nLinks;
         var nodes = this.props.nodes;
         var g = d3
@@ -176,7 +177,7 @@ class NetworkGraph extends Component {
             }
         }
 
-        function onNodeClick(data) {
+        const onNodeClick = (data) => {
 
             console.log("onNodeClick()", data);
             var d3ev = d3.event;
@@ -193,7 +194,7 @@ class NetworkGraph extends Component {
                     }
                 }
                 if (this.linkTarget != undefined) {
-                    if (thislinkTarget === data) {
+                    if (this.linkTarget === data) {
                         var selectString = nodeSelectString(this.linkTarget);
                         d3
                             .select(selectString)
@@ -227,7 +228,7 @@ class NetworkGraph extends Component {
             }
         }
 
-        function handleKeyDown() {
+        var handleKeyDown = () => {
             var d3ev = d3.event;
             console.log("handleKeyDown()", d3ev);
             if (d3ev.key === "Control") {
@@ -243,13 +244,14 @@ class NetworkGraph extends Component {
         }
 
         function handleKeyUp() {
+
             var d3ev = d3.event;
             console.log("handleKeyUp()", d3ev);
             if (d3ev.key === "Control") {
                 drawingLinks = false;
-                if (this.linkTarget && this.linkSource) {
-                    var source = nodeHash[linkSource.id];
-                    var target = nodeHash[linkTarget.id];
+                if (_that.linkTarget && _that.linkSource) {
+                    var source = nodeHash[_that.linkSource.id];
+                    var target = nodeHash[_that.linkTarget.id];
                     var links = simulation
                         .force("link")
                         .links();
@@ -265,20 +267,20 @@ class NetworkGraph extends Component {
                         .links(links);
                     refreshLinks();
                 }
-                if (this.linkTarget) {
-                    var selectString = nodeSelectString(this.linkTarget);
+                if (_that.linkTarget) {
+                    var selectString = nodeSelectString(_that.linkTarget);
                     d3
                         .select(selectString)
-                        .style("fill", this.TargetNodeColor);
+                        .style("fill", _that.TargetNodeColor);
                 }
-                if (this.linkSource) {
-                    var selectString = nodeSelectString(this.linkSource);
+                if (_that.linkSource) {
+                    var selectString = nodeSelectString(_that.linkSource);
                     d3
                         .select(selectString)
-                        .style("fill", this.SourceNodeColor);
+                        .style("fill", _that.SourceNodeColor);
                 }
-                linkSource = undefined;
-                linkTarget = undefined;
+                _that.linkSource = undefined;
+                _that.linkTarget = undefined;
 
                 simulation.restart();
             }
